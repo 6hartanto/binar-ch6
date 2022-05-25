@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User - View All</title>
+</head>
+<body>
+  <!-- loop through users -->
+  <% users.forEach(i => { %>
+    <table>
+      <tr>
+        <td><%= i.username %></td>
+        <td><%= i.email %></td>
+        <td><%= i.password %></td>
+      </tr>
+    </table>
+  <% }) %>
+</body>
+</html>

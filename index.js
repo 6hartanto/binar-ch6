@@ -4,9 +4,16 @@ const port = 3000
 const { User } = require('./models')
 const bodyparser = require('body-parser')
 
-app.use(bodyparser.json())
+app.set('view engine', 'ejs')
 
-// get all users
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({ extended: true }))
+
+app.get('/', (req, res) => {
+  res.render('index')
+})
+
+// api: get all users
 app.get('/api/users', async (req, res) => {
   try {
     const users = await User.findAll()
@@ -18,7 +25,7 @@ app.get('/api/users', async (req, res) => {
   }
 })
 
-// get user by id
+// api: get user by id
 app.get('/api/users/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id)
@@ -30,7 +37,7 @@ app.get('/api/users/:id', async (req, res) => {
   }
 })
 
-// create user
+// api: create user
 app.post('/api/users', async (req, res) => {
   try {
     const user = await User.create(req.body)
@@ -42,7 +49,7 @@ app.post('/api/users', async (req, res) => {
   }
 })
 
-// update user
+// api: update user
 app.put('/api/users/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id)
@@ -55,7 +62,7 @@ app.put('/api/users/:id', async (req, res) => {
   }
 })
 
-// delete user
+// api: delete user
 app.delete('/api/users/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id)
@@ -66,6 +73,23 @@ app.delete('/api/users/:id', async (req, res) => {
       error: 'an error has occured trying to delete user'
     })
   }
+})
+
+// ui: get all users
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.findAll()
+    res.render('users/index', { users })
+  } catch (err) {
+    res.status(500).send({
+      error: 'an error has occured trying to fetch users'
+    })
+  }
+})
+
+// ui: create user
+app.get('/users/create', async (req, res) => {
+  res.render('users/create')
 })
 
 app.listen(port, () => {
