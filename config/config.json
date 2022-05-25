@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "hartanto",
+    "password": "14220692",
+    "database": "gamelan_development",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "hartanto",
+    "password": "14220692",
+    "database": "gamelan_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "hartanto",
+    "password": "14220692",
+    "database": "gamelan_production",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
