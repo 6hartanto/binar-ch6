@@ -88,6 +88,17 @@ app.get('/users', async (req, res) => {
 })
 
 // ui: create user
+app.post('/users/create', async (req, res) => {
+  try {
+    const user = await User.create(req.body)
+    res.redirect('/users')
+  } catch (err) {
+    res.status(500).send({
+      error: 'an error has occured trying to create user'
+    })
+  }
+})
+
 app.get('/users/create', async (req, res) => {
   res.render('users/create')
 })
