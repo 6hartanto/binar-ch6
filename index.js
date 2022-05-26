@@ -103,6 +103,43 @@ app.get('/users/create', async (req, res) => {
   res.render('users/create')
 })
 
+// ui: update user
+app.post('/users/update/(:id)', async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    await user.update(req.body)
+    res.redirect('/users')
+  } catch (err) {
+    res.status(500).send({
+      error: 'an error has occured trying to update user'
+    })
+  }
+})
+
+app.get('/users/edit/(:id)', async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    res.render('users/edit', { id: req.params.id, user })
+  } catch (err) {
+    res.status(500).send({
+      error: 'an error has occured trying to fetch user'
+    })
+  }
+})
+
+// ui: delete user
+app.get('/users/delete/(:id)', async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    await user.destroy()
+    res.redirect('/users')
+  } catch (err) {
+    res.status(500).send({
+      error: 'an error has occured trying to delete user'
+    })
+  }
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
